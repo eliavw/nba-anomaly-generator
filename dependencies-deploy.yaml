@@ -1,0 +1,15 @@
+name: nba-anomaly-generator
+channels:
+  - defaults
+  - conda-forge
+  - pytorch
+dependencies:
+  - python>=3.6
+  - pip
+  - pip:  
+      - ipython
+      - numpy
+      - pandas
+      - scipy
+      - scikit-learn
+      - nba_api
