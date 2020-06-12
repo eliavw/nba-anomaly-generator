@@ -4,6 +4,7 @@ from nba_api.stats.static import players, teams
 
 import pandas as pd
 import numpy as np
+import warnings
 
 
 def get_plyr_stats_dataframe(plyr_id=None, timeout_s=30):
@@ -20,9 +21,14 @@ def get_plyr_stats_dataframe(plyr_id=None, timeout_s=30):
 def get_team_roster_dataframe(
     team_id=None, season_id=None, add_season_id=True, timeout_s=30
 ):
+    if isinstance(team_id, str):
+        team_id = _get_team_id(full_name=team_id)
+
+    if isinstance(season_id, int):
+        season_id = _season_to_season_id(season=season_id)
 
     assert isinstance(team_id, int)
-    assert isinstance(season_id, (int, str))
+    assert isinstance(season_id, str)
 
     # collect inputs
     ep = endpoints.CommonTeamRoster(team_id, season=season_id, timeout=timeout_s)
@@ -120,3 +126,9 @@ def get_default_team_plyr_stats_dataframe():
 def _season_to_season_id(season=None):
     assert isinstance(season, int), "Season must be int"
     return "{}-{}".format(season, str(season + 1)[-2:])
+
+
+def _get_team_id(full_name="Los Angeles Lakers"):
+    teams_dict_list = teams.get_teams()
+    team = [x for x in teams_dict_list if x["full_name"] == full_name][0]
+    return team["id"]

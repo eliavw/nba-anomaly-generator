@@ -39,7 +39,7 @@ def insert_swap_anomaly(
 
     # Insert value and label
     df.iat[row_idx, r_col_idx] = vals["l"]
-    df.iat[row_idx, r_col_idx] = vals["r"]
+    df.iat[row_idx, l_col_idx] = vals["r"]
 
     # N.b. the _init_df method garantuees last column is the anomaly one.
     df.iat[row_idx, -1] = 1

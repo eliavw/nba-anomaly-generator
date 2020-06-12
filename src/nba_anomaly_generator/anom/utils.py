@@ -13,7 +13,7 @@ def assert_and_rng_and_prep_df(df, rng=None, random_state=42):
     df = _init_df(df)
 
     # Fix random number generator
-    rng = _init_rng(rng=rng, random_state=random_state)
+    rng = init_rng(rng=rng, random_state=random_state)
     return rng, df
 
 
@@ -33,7 +33,7 @@ def _init_anomaly_column(df, name="a_lbl", value=np.nan):
 
 
 # rng
-def _init_rng(rng=None, random_state=42):
+def init_rng(rng=None, random_state=42):
     if rng is None:
         return np.random.default_rng(random_state)
     else:

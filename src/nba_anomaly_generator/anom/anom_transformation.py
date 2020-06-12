@@ -40,7 +40,7 @@ def insert_transformation_anomaly(
     new = transformation(old, **transformation_kwargs)
     df.iat[row_idx, col_idx] = new
 
-    # N.b. the _init_df method garantuees last column is the anomaly one.
+    # N.b. the prep_df method garantuees last column is the anomaly one.
     df.iat[row_idx, -1] = 1
 
     if return_anomaly_metadata:
